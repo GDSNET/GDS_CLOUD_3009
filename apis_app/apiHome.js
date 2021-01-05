@@ -17,7 +17,7 @@ exports.funHome = function (req, res)  {
         conn.connect().then(function () {
         querysobj = "select * from [dbo].[app_cfg_objecion] where id_cliente = " + id_cliente + ""
         queryres = "select * from [v_app_usuarios_indicadores_resumen] where token= '" + token + "'"
-        queryrank = "select * from v_app_ranking_salas where token= '"+token+"' order by valor asc "
+        queryrank = "select top 10 * from v_app_ranking_salas where token= '"+token+"' order by valor asc "
         queryAll = querysobj + queryres + queryrank
        // console.log(queryAll)
        new Promise((resolve) => {
@@ -68,13 +68,16 @@ exports.funHome = function (req, res)  {
 
     function  funAgrupaObjeciones (arrayObjeciones, arrayResumen, arrayRanking) {
 
+        var titulo_ranking = arrayRanking[0].titulo_ranking
+
         usuario = {}
 
         arrayResumen.map( function (value, i)  {
             usuario = ({
                 "id_usuario": value.id_usuario,
                 "desc_usuario": value.nombre,
-                "estado": 0
+                "estado": 0,
+                "titulo_ranking": titulo_ranking
             })
 
         })
