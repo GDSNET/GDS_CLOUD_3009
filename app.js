@@ -11,6 +11,7 @@ var multer  = require('multer')
 var sql = require('mssql'); 
 var bodyParser = require("body-parser");
 const apiFotos64 = require('./apis_app/apiFotosBase64');
+const apiPautaIntranet = require('./apis_intranet/apiPautaIntranet')
 
 app.use(express.json());
 
@@ -41,6 +42,10 @@ app.use(function(req, res, next) {
 //app.use (bodyParser.urlencoded ({limit: '500mb', extended: true}))
 
 
+app.post('/post_intranet_pauta',function (req, res) {
+    apiPautaIntranet.funPautaIntranet(req, res)
+
+})
 
 app.post('/post_app_salas',function (req, res) {
     apiSalas.funSalas(req, res)
