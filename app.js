@@ -1,3 +1,4 @@
+const apiloginweb = require('./apis_web_cl/apiLoginweb')
 const apiSalas = require('./apis_app/post_salas');
 const apiPruebas = require('./apis_pruebas/post_prueba');
 const apiLogin = require('./apis_app/apiLoginApp');
@@ -12,6 +13,11 @@ var sql = require('mssql');
 var bodyParser = require("body-parser");
 const apiFotos64 = require('./apis_app/apiFotosBase64');
 const apiPautaIntranet = require('./apis_intranet/apiPautaIntranet')
+const apiPlataformaIntranet = require('./apis_intranet/apiPlataformasIntranet')
+const apiSalasIntranet = require('./apis_intranet/apiSalasIntranet')
+const apiPlanillaIntranet = require('./apis_intranet/apiPlanillaIntranet')
+const apiMecanicaIntrat = require('./apis_intranet/apiMecanicaIntranet')
+const apiInsertSkuIntranet = require('./apis_intranet/apiInsertSkuIntranet')
 
 app.use(express.json());
 
@@ -42,9 +48,32 @@ app.use(function(req, res, next) {
 //app.use (bodyParser.urlencoded ({limit: '500mb', extended: true}))
 
 
+app.post('/post_intranet_insert_sku',function (req, res) {
+    apiInsertSkuIntranet.funInsertSkuIntranet(req, res)
+})
+
+app.post('/post_intranet_mecanica',function (req, res) {
+    apiMecanicaIntrat.funMecanicaIntranet(req, res)
+})
+
+app.post('/post_intranet_planilla',function (req, res) {
+    apiPlanillaIntranet.funCargaPlanillaIntranet(req, res)
+})
+
+app.post('/post_intranet_salas',function (req, res) {
+    apiSalasIntranet.funSalasIntranet(req, res)
+})
+
+app.post('/post_intranet_plataforma',function (req, res) {
+    apiPlataformaIntranet.funPlataformaIntranet(req, res)
+})
+
 app.post('/post_intranet_pauta',function (req, res) {
     apiPautaIntranet.funPautaIntranet(req, res)
+})
 
+app.post('/post_web_login',function (req, res) {
+    apiloginweb.funLoginweb(req, res)
 })
 
 app.post('/post_app_salas',function (req, res) {

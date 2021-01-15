@@ -3,6 +3,8 @@ var sql = require('mssql');
 exports.funPautaIntranet = function (req, res, next) {
     
     var id_usuario = req.body.id_usuario;
+    var id_sala = req.body.id_sala;
+    var id_plataforma = req.body.id_plataforma;
 
     const pool = new sql.ConnectionPool({
         user: 'sa',
@@ -16,7 +18,7 @@ exports.funPautaIntranet = function (req, res, next) {
 conn.connect().then(function () {
 var req = new sql.Request(conn);
 
-query = "SELECT * FROM [dbo].[view_gds_e_com_pauta] WHERE id_usuario = '"+id_usuario+"' ";
+query = "SELECT * FROM [dbo].[view_gds_e_com_pauta] WHERE id_usuario = '"+id_usuario+"' AND id_sala= '"+id_sala+"'  AND id_plataforma= '"+id_plataforma+"'";
 //console.log(query);
 conn.query(query).then( function (recordset) {
 //console.log(recordset)
@@ -26,7 +28,7 @@ conn.query(query).then( function (recordset) {
 if(recordset.recordset.length === 0){
     res.json({"usuario"  : "NOUSER"})
 }
-else{res.json(recordset.recordset[0])}
+else{res.json(recordset.recordset)}
             
 }) 
     .catch(function (err) {
