@@ -18,6 +18,9 @@ const apiSalasIntranet = require('./apis_intranet/apiSalasIntranet')
 const apiPlanillaIntranet = require('./apis_intranet/apiPlanillaIntranet')
 const apiMecanicaIntrat = require('./apis_intranet/apiMecanicaIntranet')
 const apiInsertSkuIntranet = require('./apis_intranet/apiInsertSkuIntranet')
+const apiSelectSkuIntranet = require('./apis_intranet/apiSkuIntranet')
+const apiSkuCategoriaIntranet = require('./apis_intranet/apiSkuCategoriaIntranet')
+const apiSelectErroresPautaIntranet = require('./apis_intranet/apiSelectErroresPautaIntranet')
 
 app.use(express.json());
 
@@ -46,7 +49,17 @@ app.use(function(req, res, next) {
 
 //app.use (bodyParser.json ({limit: '500mb', extended: true}))
 //app.use (bodyParser.urlencoded ({limit: '500mb', extended: true}))
+app.post('/post_intranet_select_errores_pauta',function (req, res) {
+    apiSelectErroresPautaIntranet.funSelectErroresPautaIntranet(req, res)
+})
 
+app.post('/post_intranet_select_categoria_sku',function (req, res) {
+    apiSkuCategoriaIntranet.funSelectCalidadSkuIntranet(req, res)
+})
+
+app.post('/post_intranet_select_sku',function (req, res) {
+    apiSelectSkuIntranet.funSelectSkuIntranet(req, res)
+})
 
 app.post('/post_intranet_insert_sku',function (req, res) {
     apiInsertSkuIntranet.funInsertSkuIntranet(req, res)

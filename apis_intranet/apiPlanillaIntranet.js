@@ -2,15 +2,14 @@ var sql = require('mssql');
 
 exports.funCargaPlanillaIntranet = function (req, res, next) {
     
-    var sqlConfig = {
+    const pool = new sql.ConnectionPool({
         user: 'sa',
         password: 'sasa',
         server: '192.168.0.22',
-        database: 'GDS_INTRANET_CL',
-        requestTimeout: 3000000
-        }
-        
-    sql.close();
+        database: 'GDS_INTRANET_CL'
+    })
+
+    var conn = pool;
     
     var desc_periodo = req.body.desc_periodo;
     var id_tie_semana = req.body.id_tie_semana;
@@ -29,31 +28,35 @@ exports.funCargaPlanillaIntranet = function (req, res, next) {
    // console.log(arraydatos)
     //console.log(arraydatos.length)
    
-    sql.connect(sqlConfig, function() {
-    var request = new sql.Request();
+    conn.connect().then(function () {
+        var req = new sql.Request(conn);
 
        queryarraydatos = "insert into [dbo].[dm_planilla_detalle] values ('"+desc_periodo+"',"+id_tie_semana+","+id_plataforma+","+id_sala+","+id_sku_sap+","+presencia+","+f_stock+",'"+f_imagen+"',"+f_descripcion+","+f_precio_unitario+","+f_precio_descuento+","+f_mecanica+","+f_alerta_quiebre+")"
    
        // console.log(queryarraydatos);
-            request.query(queryarraydatos, function(err, recordset) {
-   
-               try {
+       conn.query(queryarraydatos).then( function (recordset) {
+
                    if (recordset.rowsAffected.length >0)
                    {
                    res.json({"data":"ok"});
                    res.end();
+                   conn.close();
                    }
                    else
                    {
                    console.log ("0 filas afectadas");
                    res.json({"data":"error"});
                    res.end();
+                   conn.close();
                    }
-               } catch (error) {
-                   res.json({"data":err});
-                   res.end();
-               }
-             
-            })
-    })
+            }).catch(function (err) {
+                res.json({"data":err.message}); 
+                res.end();
+                conn.close();
+                });
+    }).catch(function (err) {
+        res.json({"data":err.message}); 
+        res.end();
+        conn.close();
+        });
                    }
