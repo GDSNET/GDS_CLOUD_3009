@@ -53,7 +53,7 @@ app.use(function(req, res, next) {
 
 
 
-app.post('/post_intranet_count_image',function (req, res) {
+app.post('/post_intranet_count_images',function (req, res) {
     apiSkuIntranetCountImage.funSelectCountImage(req, res)
 })
 
