@@ -12,7 +12,7 @@ exports.funSalas = function (req, res)  {
         var conn = pool;
     try{
         conn.connect().then(function () {
-        queryspdv = "select TOP 10 * from [v_app_salas] where token = '" + token + "'"
+        queryspdv = "select  * from [v_app_salas] where token = '" + token + "'"
         queryspdv2 = "select * from [v_app_salas_indicadores] where token= '" + token + "'"
         queryspdv3 = "select * from [v_app_salas_indicadores_detalle] where token= '" + token + "'"
         queryAll = queryspdv + queryspdv2 + queryspdv3

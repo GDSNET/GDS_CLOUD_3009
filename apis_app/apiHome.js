@@ -69,6 +69,7 @@ exports.funHome = function (req, res)  {
     function  funAgrupaObjeciones (arrayObjeciones, arrayResumen, arrayRanking) {
 
         var titulo_ranking = arrayRanking[0].titulo_ranking
+       // console.log(titulo_ranking)
 
         usuario = {}
 
