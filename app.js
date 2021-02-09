@@ -22,6 +22,7 @@ const apiSelectSkuIntranet = require('./apis_intranet/apiSkuIntranet')
 const apiSkuCategoriaIntranet = require('./apis_intranet/apiSkuCategoriaIntranet')
 const apiSelectErroresPautaIntranet = require('./apis_intranet/apiSelectErroresPautaIntranet')
 const apiSkuCountImage = require('./apis_intranet/apiSkuCountImage')
+const apiControlEcomerce = require('./apis_intranet/apiControlEcomerce')
 
 app.use(express.json());
 
@@ -50,6 +51,10 @@ app.use(function(req, res, next) {
 
 //app.use (bodyParser.json ({limit: '500mb', extended: true}))
 //app.use (bodyParser.urlencoded ({limit: '500mb', extended: true}))
+app.post('/post_intranet_ecomerce_control',function (req, res) {
+    apiControlEcomerce.funControlEcomerce(req, res)
+})
+
 app.post('/post_intranet_ecomerce_count_image',function (req, res) {
     apiSkuCountImage.funSelectSkuCountImage(req, res)
 })
