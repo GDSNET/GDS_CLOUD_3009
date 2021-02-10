@@ -16,7 +16,7 @@ exports.funControlEcomerce = function (req, res, next) {
 conn.connect().then(function () {
 var req = new sql.Request(conn);
 
-query = "exec [dbo].[sp_ctrl_e_commerce] " + reporte +  " , '" + parametros + "'"
+query = "exec [dbo].[sp_ctrl_e_commerce] '" + reporte +  "' , '" + parametros + "'"
 //console.log(query);
 conn.query(query).then( function (recordset) {
 //console.log(recordset)
